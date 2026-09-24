@@ -7,6 +7,7 @@ interface RevealProps {
   className?: string;
   delay?: number;
   as?: "div" | "span" | "li";
+  variant?: "fade" | "wipe";
 }
 
 export default function Reveal({
@@ -14,6 +15,7 @@ export default function Reveal({
   className = "",
   delay = 0,
   as = "div",
+  variant = "fade",
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -43,7 +45,9 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`reveal ${visible ? "reveal-visible" : ""} ${className}`}
+      className={`${variant === "wipe" ? "reveal-wipe" : "reveal"} ${
+        visible ? "reveal-visible" : ""
+      } ${className}`}
       style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
     >
       {children}

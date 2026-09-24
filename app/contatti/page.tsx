@@ -10,12 +10,15 @@ export const metadata: Metadata = {
 
 export default function ContattiPage() {
   return (
-    <main className="pt-36 pb-28 px-6 md:px-10 bg-bg min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-16 max-w-2xl">
+    <main className="relative pt-44 pb-32 px-6 md:px-10 bg-bg min-h-screen overflow-hidden">
+      <div className="glow-accent w-[520px] h-[520px] -top-20 left-1/3 opacity-50" />
+
+      <div className="relative max-w-6xl mx-auto">
+        <div className="mb-20 max-w-4xl">
           <p className="eyebrow-gold mb-6">Commissioni aperte</p>
-          <h1 className="font-serif font-light text-4xl md:text-6xl leading-tight">
-            Raccontami <span className="italic text-gold">la tua creatura</span>
+          <h1 className="font-serif font-light text-6xl md:text-8xl leading-[0.98] text-white">
+            Raccontami{" "}
+            <span className="italic text-shimmer animate-shimmer pr-3">la tua creatura</span>
           </h1>
         </div>
 

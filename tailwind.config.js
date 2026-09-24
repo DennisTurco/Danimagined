@@ -26,6 +26,9 @@ module.exports = {
         slowzoom: "slowzoom 6.5s ease-out forwards",
         float: "float 3s ease-in-out infinite",
         marquee: "marquee 30s linear infinite",
+        "marquee-slow": "marquee 55s linear infinite",
+        "marquee-reverse": "marquee 45s linear infinite reverse",
+        shimmer: "shimmer 6s ease-in-out infinite",
       },
       keyframes: {
         kenburns: {
@@ -43,6 +46,10 @@ module.exports = {
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        shimmer: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
         },
       },
     },

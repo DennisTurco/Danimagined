@@ -27,7 +27,7 @@ export default function PortfolioCarousel() {
   const next = () => setIndex((i) => (i + 1) % slides.length);
 
   return (
-    <section id="opere" className="relative bg-bg py-28 px-6 md:px-10">
+    <section id="opere" className="relative bg-bg pt-12 pb-32 md:pb-40 px-6 md:px-10">
       <span className="section-label">Portfolio</span>
       <div className="max-w-6xl mx-auto">
         <Reveal>
@@ -42,14 +42,14 @@ export default function PortfolioCarousel() {
               <button
                 onClick={prev}
                 aria-label="Opera precedente"
-                className="w-11 h-11 flex items-center justify-center border border-white/25 hover:border-gold hover:text-gold hover:-translate-x-0.5 transition-[border-color,color,transform] duration-300"
+                className="w-14 h-14 text-lg flex items-center justify-center border border-white/25 hover:border-gold hover:text-gold hover:-translate-x-0.5 transition-[border-color,color,transform] duration-300"
               >
                 ←
               </button>
               <button
                 onClick={next}
                 aria-label="Opera successiva"
-                className="w-11 h-11 flex items-center justify-center border border-white/25 hover:border-gold hover:text-gold hover:translate-x-0.5 transition-[border-color,color,transform] duration-300"
+                className="w-14 h-14 text-lg flex items-center justify-center border border-white/25 hover:border-gold hover:text-gold hover:translate-x-0.5 transition-[border-color,color,transform] duration-300"
               >
                 →
               </button>
@@ -57,7 +57,7 @@ export default function PortfolioCarousel() {
           </div>
         </Reveal>
 
-        <Reveal delay={100}>
+        <Reveal delay={100} variant="wipe">
           <div
             className="relative w-full aspect-video overflow-hidden bg-panel shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]"
             onMouseEnter={() => setPaused(true)}
