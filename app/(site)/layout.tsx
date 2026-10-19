@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const og = settings.ogImage;
   const xHandle = settings.socials.find((s) => /x\.com|twitter\.com/.test(s.url))?.handle;
   return {
-    title: { default: settings.seoTitle, template: "%s — Danimagined" },
+    title: { default: settings.seoTitle, template: "%s - Danimagined" },
     description: settings.seoDescription,
     authors: [{ name: site.name, url: site.url }],
     creator: site.name,

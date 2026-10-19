@@ -72,7 +72,7 @@ export default async function Footer() {
                   rel="noopener noreferrer"
                   className="link-underline hover:text-gold transition-colors"
                 >
-                  {s.label}{s.handle ? ` — ${s.handle}` : ""}
+                  {s.label}{s.handle ? ` - ${s.handle}` : ""}
                 </a>
               </li>
             ))}
@@ -92,7 +92,7 @@ export default async function Footer() {
           <div className="flex items-center gap-2 mb-4 text-sm text-white/60">
             <span className={`w-2 h-2 rounded-full ${settings.commissionsOpen ? "bg-gold" : "bg-taupe"}`} />
             {settings.commissionsOpen
-              ? `Aperte — risposta in ${settings.responseTime}`
+              ? `Aperte - risposta in ${settings.responseTime}`
               : "Chiuse al momento"}
           </div>
           <Link href="/contatti" className="btn-outline">

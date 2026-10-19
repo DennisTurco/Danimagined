@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: { canonical: "/opere" },
     openGraph: {
       url: "/opere",
-      title: "Le opere — Danimagined",
+      title: "Le opere - Danimagined",
       description: "Creature ibride, scene narrative e ritratti fantasy: il portfolio di Danimagined.",
       images: cover ? [{ url: cover.src, width: cover.width, height: cover.height }] : undefined,
     },
@@ -33,7 +33,7 @@ export default async function OperePage() {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Le opere — Danimagined",
+          name: "Le opere - Danimagined",
           url: `${site.url}/opere`,
           inLanguage: "it-IT",
           isPartOf: { "@id": `${site.url}/#website` },

@@ -1,6 +1,6 @@
 # Danimagined
 
-Portfolio website for **Danimagined** — illustration and concept art. It showcases artworks, commission pricing and a contact form for requesting custom pieces. The site content is in Italian.
+Portfolio website for **Danimagined** - illustration and concept art. It showcases artworks, commission pricing and a contact form for requesting custom pieces. The site content is in Italian.
 
 Content (works, packages, landing, about, contacts) is managed in [Sanity](https://www.sanity.io/) through the Studio embedded at `/studio`.
 
@@ -120,8 +120,8 @@ public/images/                Static images (logo, sample content)
 | Landing (home)  | Hero image and texts, cover work, "Il lavoro" section and services, marquee words, pricing texts, final call to action |
 | Chi sono        | Photo, title, paragraphs (the first letter becomes a drop cap), quote, link text              |
 | Opere           | Title, image (with focal point and alt text), category, featured, description, year, technique, price, order |
-| Categorie       | Name, filter label, order — gallery filters are generated from the categories in use          |
-| Pacchetti       | Name, starting price, description, included items, "most requested" highlight, order — also used as options in the contact form |
+| Categorie       | Name, filter label, order - gallery filters are generated from the categories in use          |
+| Pacchetti       | Name, starting price, description, included items, "most requested" highlight, order - also used as options in the contact form |
 | Impostazioni    | Email, social profiles, Google Calendar booking link, commissions open/closed, response time, SEO title, description and share image |
 
 Featured works appear in the home carousel; if none is featured, the first eight are shown.

@@ -193,7 +193,7 @@ function EmailBooking({ email, responseTime }: { email: string; responseTime: st
     if (!day || !slot) return;
     window.location.href = mailto(
       email,
-      `Richiesta call — ${day} alle ${slot}`,
+      `Richiesta call - ${day} alle ${slot}`,
       `Ciao, vorrei prenotare una call di 30 minuti ${day} alle ${slot} per parlare di una commissione.\n\n`
     );
     setRequested(true);

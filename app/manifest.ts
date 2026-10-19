@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Danimagined — Illustrazione & Concept Art",
+    name: "Danimagined - Illustrazione & Concept Art",
     short_name: site.name,
     start_url: "/",
     display: "standalone",

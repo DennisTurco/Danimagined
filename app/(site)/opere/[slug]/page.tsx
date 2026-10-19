@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const description = work.description ?? `${work.category.title} di Danimagined.`;
   const image = { url: work.image.src, width: work.image.width, height: work.image.height, alt: work.title };
   return {
-    title: `${work.title} — ${work.category.title}`,
+    title: `${work.title} - ${work.category.title}`,
     description,
     alternates: { canonical: url },
-    openGraph: { type: "article", url, title: `${work.title} — Danimagined`, description, images: [image] },
+    openGraph: { type: "article", url, title: `${work.title} - Danimagined`, description, images: [image] },
     twitter: {
       card: "summary_large_image",
-      title: `${work.title} — Danimagined`,
+      title: `${work.title} - Danimagined`,
       description,
       images: [work.image.src],
     },

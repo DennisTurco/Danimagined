@@ -178,8 +178,8 @@ export const defaultLanding: Landing = {
   introTitle: "Non disegno soggetti. Disegno",
   introTitleAccent: "l'istante prima",
   introParagraphs: [
-    "Lavoro in digitale con una pennellata volutamente visibile: la texture resta, il segno resta. È il modo in cui costruisco atmosfera — nebbia, neve, torce, il peso di una bestia che respira.",
-    "Realizzo character design, creature e ibridi, scene narrative e ritratti su commissione — per giochi di ruolo, progetti indie, editoria e collezionisti privati.",
+    "Lavoro in digitale con una pennellata volutamente visibile: la texture resta, il segno resta. È il modo in cui costruisco atmosfera - nebbia, neve, torce, il peso di una bestia che respira.",
+    "Realizzo character design, creature e ibridi, scene narrative e ritratti su commissione - per giochi di ruolo, progetti indie, editoria e collezionisti privati.",
   ],
   services: [
     { title: "Character design", description: "Figure umane, armature, volti che raccontano un passato." },
@@ -189,14 +189,14 @@ export const defaultLanding: Landing = {
   marqueeWords: ["Character design", "Creature design", "Scene narrative", "Ritratti", "Cover & editoria"],
   pricingTitle: "Pacchetti",
   pricingIntro:
-    "Prezzi di partenza. Il preventivo finale dipende da complessità, numero di soggetti e uso finale — commerciale o personale.",
+    "Prezzi di partenza. Il preventivo finale dipende da complessità, numero di soggetti e uso finale - commerciale o personale.",
   pricingNote:
     "Consegna tipica 7–21 giorni · Acconto 30% all'accettazione · Disponibile in digitale o su tela",
   ctaTitle: "Hai una",
   ctaTitleAccent: "creatura",
   ctaTitleEnd: "in testa che non esiste ancora?",
   ctaText:
-    "Raccontamela. Bastano due righe, qualche reference e il formato che ti serve — ti rispondo con tempi e preventivo entro 48 ore.",
+    "Raccontamela. Bastano due righe, qualche reference e il formato che ti serve - ti rispondo con tempi e preventivo entro 48 ore.",
   ctaImage: { src: "/images/works/drago.jpg", width: 8004, height: 4500, alt: "" },
 };
 
@@ -228,8 +228,8 @@ export const defaultSettings: Settings = {
     "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1C0peF75VEsLM90kXWOO7Ku_ARW822n_XsEDGyUmmFRUII1I1MFEpsXQoTSchgDOzOxPbXmPVp",
   commissionsOpen: true,
   responseTime: "48 ore",
-  seoTitle: "Danimagined — Illustrazione & Concept Art fantasy su commissione",
+  seoTitle: "Danimagined - Illustrazione & Concept Art fantasy su commissione",
   seoDescription:
     "Illustrazione e concept art fantasy su commissione: character design, creature ibride, scene narrative e ritratti digitali. Preventivo entro 48 ore.",
-  ogImage: { src: "/images/banner.png", width: 1024, height: 1024, alt: "Danimagined — Concept Art" },
+  ogImage: { src: "/images/banner.png", width: 1024, height: 1024, alt: "Danimagined - Concept Art" },
 };

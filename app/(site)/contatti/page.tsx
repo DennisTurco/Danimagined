@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contatti" },
   openGraph: {
     url: "/contatti",
-    title: "Contatti e commissioni — Danimagined",
+    title: "Contatti e commissioni - Danimagined",
   },
 };
 
@@ -51,7 +51,7 @@ export default async function ContattiPage() {
                       rel="noopener noreferrer"
                       className="link-underline hover:text-gold transition-colors"
                     >
-                      {s.label}{s.handle ? ` — ${s.handle}` : ""}
+                      {s.label}{s.handle ? ` - ${s.handle}` : ""}
                     </a>
                   </li>
                 ))}
