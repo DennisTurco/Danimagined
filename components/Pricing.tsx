@@ -94,7 +94,7 @@ export default function Pricing({ packages, landing }: { packages: Package[]; la
                   ))}
                 </ul>
                 <Link
-                  href="/contatti"
+                  href={`/contatti?pacchetto=${encodeURIComponent(pkg.name)}#richiesta`}
                   className={`relative text-center ${
                     pkg.highlight ? "btn-solid" : "btn-outline"
                   }`}

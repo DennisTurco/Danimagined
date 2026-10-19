@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BookCallPanel from "@/components/BookCallPanel";
-import { getSettings } from "@/lib/content";
+import ContactForm from "@/components/ContactForm";
+import { getPackages, getSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contatti e commissioni",
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContattiPage() {
-  const settings = await getSettings();
+  const [settings, packages] = await Promise.all([getSettings(), getPackages()]);
   return (
     <main className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-5 md:px-10 bg-bg min-h-screen overflow-hidden">
       <div className="glow-accent w-[520px] h-[520px] -top-20 left-1/3 opacity-50" />
@@ -32,14 +33,20 @@ export default async function ContattiPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-20">
           <div className="lg:col-span-2">
-            <BookCallPanel
-              bookingUrl={settings.bookingUrl}
+            <ContactForm
               email={settings.email}
+              packages={packages}
               responseTime={settings.responseTime}
             />
           </div>
 
           <aside className="space-y-10 self-start">
+            <BookCallPanel
+              bookingUrl={settings.bookingUrl}
+              email={settings.email}
+              responseTime={settings.responseTime}
+            />
+
             <div>
               <p className="eyebrow mb-4">Contatti diretti</p>
               <ul className="space-y-3 text-white/60 text-sm">
