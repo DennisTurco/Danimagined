@@ -1,10 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
-import CustomCursor from "@/components/CustomCursor";
+import { site } from "@/lib/site";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -22,29 +19,25 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Danimagined — Illustrazione & Concept Art",
-  description:
-    "Illustrazione e concept art fantasy: character design, creature ibride e scene narrative su commissione. Dove l'uomo incontra la sua creatura.",
+  metadataBase: new URL(site.url),
+  applicationName: site.name,
+  icons: { icon: "/images/logo.png", apple: "/images/logo.png" },
+  formatDetection: { telephone: false },
 };
 
-export const viewport = "width=device-width, initial-scale=1.0";
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#242220",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="it">
       <body
         className={`${cormorant.variable} ${jost.variable} font-sans bg-bg text-white/80 antialiased`}
       >
-        <div className="grain-overlay" />
-        <CustomCursor />
-        <ScrollProgress />
-        <Nav />
         {children}
-        <Footer />
       </body>
     </html>
   );

@@ -3,31 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { works } from "@/lib/works";
 import Reveal from "@/components/Reveal";
+import type { Work } from "@/lib/types";
 
-const slides = works.slice(0, 8);
-
-export default function PortfolioCarousel() {
+export default function PortfolioCarousel({ slides }: { slides: Work[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || slides.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     timer.current = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
     }, 5000);
     return () => {
       if (timer.current) clearInterval(timer.current);
     };
-  }, [paused]);
+  }, [paused, slides.length]);
 
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
   const next = () => setIndex((i) => (i + 1) % slides.length);
 
+  if (slides.length === 0) return null;
+
   return (
-    <section id="opere" className="relative bg-bg pt-12 pb-32 md:pb-40 px-6 md:px-10">
+    <section id="opere" className="relative bg-bg pt-12 pb-24 md:pb-40 px-5 md:px-10">
       <span className="section-label">Portfolio</span>
       <div className="max-w-6xl mx-auto">
         <Reveal>
@@ -59,38 +60,40 @@ export default function PortfolioCarousel() {
 
         <Reveal delay={100} variant="wipe">
           <div
-            className="relative w-full aspect-video overflow-hidden bg-panel shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]"
+            className="relative w-full aspect-[4/5] sm:aspect-[4/3] md:aspect-video overflow-hidden bg-panel shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
             {slides.map((work, i) => (
               <div
-                key={work.id}
+                key={work.slug}
                 className={`absolute inset-0 transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(.16,.84,.28,1)] ${
                   i === index
                     ? "opacity-100 scale-100"
                     : "opacity-0 scale-[1.04] pointer-events-none"
                 }`}
               >
-                <Link href={`/opere/${work.id}`} className="block w-full h-full relative overflow-hidden">
+                <Link href={`/opere/${work.slug}`} className="block w-full h-full relative overflow-hidden">
                   <Image
-                    key={`${work.id}-${i === index ? "on" : "off"}`}
-                    src={work.img}
-                    alt={work.title}
+                    key={`${work.slug}-${i === index ? "on" : "off"}`}
+                    src={work.image.src}
+                    alt={work.image.alt ?? work.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 1024px"
+                    priority={i === 0}
                     className={`object-cover ${i === index ? "animate-slowzoom" : ""}`}
+                    style={{ objectPosition: work.image.position ?? "center" }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                  <div className="absolute bottom-5 left-5 right-5 md:bottom-8 md:left-8 md:right-8 flex items-end justify-between gap-6">
                     <div>
-                      <p className="eyebrow-gold mb-2 text-sm">{work.cat}</p>
-                      <h3 className="font-serif text-3xl md:text-5xl text-white font-light">
+                      <p className="eyebrow-gold mb-2 md:mb-3">{work.category.title}</p>
+                      <h3 className="font-serif text-3xl md:text-5xl text-white font-light leading-tight">
                         {work.title}
                       </h3>
                     </div>
-                    <span className="text-white/60 text-base md:text-lg tracking-widest">
-                      {String(i + 1).padStart(2, "0")} / 08
+                    <span className="shrink-0 text-white/60 text-sm md:text-base tracking-widest tabular-nums">
+                      {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
                     </span>
                   </div>
                 </Link>
@@ -107,16 +110,21 @@ export default function PortfolioCarousel() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2 mt-6">
+          <div className="flex items-center justify-center mt-4">
             {slides.map((work, i) => (
               <button
-                key={work.id}
+                key={work.slug}
                 onClick={() => setIndex(i)}
                 aria-label={`Vai alla slide ${i + 1}`}
-                className={`h-[2px] transition-all duration-300 ${
-                  i === index ? "w-8 bg-gold" : "w-4 bg-white/20 hover:bg-white/40"
-                }`}
-              />
+                aria-current={i === index}
+                className="group py-3 px-1"
+              >
+                <span
+                  className={`block h-[2px] transition-all duration-300 ${
+                    i === index ? "w-8 bg-gold" : "w-4 bg-white/20 group-hover:bg-white/50"
+                  }`}
+                />
+              </button>
             ))}
           </div>
 

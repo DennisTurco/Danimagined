@@ -12,6 +12,15 @@ body {
   position: relative;
 }
 
+:focus-visible {
+  outline: 1px solid #c5a46d;
+  outline-offset: 4px;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
 ::selection {
   background: #c5a46d;
   color: #242220;
@@ -209,6 +218,9 @@ body {
     #a8864f 100%
   );
   background-size: 250% 100%;
+  /* Spazio extra per non tagliare il corsivo, senza spostare la punteggiatura */
+  padding-right: 0.12em;
+  margin-right: -0.12em;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

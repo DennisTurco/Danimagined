@@ -1,12 +1,4 @@
-const words = [
-  "Character design",
-  "Creature design",
-  "Scene narrative",
-  "Ritratti",
-  "Cover & editoria",
-];
-
-function Row({ outline = false }: { outline?: boolean }) {
+function Row({ words, outline = false }: { words: string[]; outline?: boolean }) {
   return (
     <span className="flex items-center shrink-0">
       {words.map((w) => (
@@ -25,19 +17,21 @@ function Row({ outline = false }: { outline?: boolean }) {
   );
 }
 
-export default function Marquee() {
+export default function Marquee({ words }: { words: string[] }) {
+  if (words.length === 0) return null;
   return (
     <div
-      aria-label="Character design, creature design, scene narrative, ritratti, cover e editoria"
+      role="note"
+      aria-label={words.join(", ")}
       className="relative bg-marquee border-y border-white/10 py-10 md:py-14 overflow-hidden space-y-6 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]"
     >
       <div aria-hidden="true" className="flex w-max animate-marquee-slow">
-        <Row />
-        <Row />
+        <Row words={words} />
+        <Row words={words} />
       </div>
       <div aria-hidden="true" className="flex w-max animate-marquee-reverse">
-        <Row outline />
-        <Row outline />
+        <Row words={words} outline />
+        <Row words={words} outline />
       </div>
     </div>
   );

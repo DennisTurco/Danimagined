@@ -1,56 +1,18 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import type { Landing, Package } from "@/lib/types";
 
-const packages = [
-  {
-    name: "Ritratto",
-    price: "da 50€",
-    desc: "Testa e spalle, sfondo neutro. Il volto lavorato a pennellata piena, luce studiata sul soggetto.",
-    bullets: [
-      "1 bozzetto di impostazione",
-      "2 giri di revisione",
-      "File digitale ad alta risoluzione",
-    ],
-    highlight: false,
-  },
-  {
-    name: "Half-body",
-    price: "da 70€",
-    desc: "Mezzo busto con posa, abiti e armatura. Lo spazio giusto per dare un carattere al personaggio.",
-    bullets: [
-      "2 bozzetti di posa",
-      "2 giri di revisione",
-      "Studio di colore incluso",
-    ],
-    highlight: false,
-  },
-  {
-    name: "Creature design",
-    price: "da 90€",
-    desc: "Una creatura originale o un ibrido, progettata sull'anatomia reale: come si muove, come caccia, come respira.",
-    bullets: [
-      "3 proposte di silhouette",
-      "3 giri di revisione",
-      "Vista finale + dettagli",
-    ],
-    highlight: true,
-  },
-  {
-    name: "Illustrazione",
-    price: "da 150€",
-    desc: "Scena completa: personaggio, creatura e ambiente. Una storia intera dentro un'unica inquadratura.",
-    bullets: [
-      "Thumbnail di composizione",
-      "Revisioni illimitate in bozza",
-      "Formato stampa fino a 60×40 cm",
-    ],
-    highlight: false,
-  },
-];
+const gridCols: Record<number, string> = {
+  1: "md:grid-cols-1 max-w-md mx-auto",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-2 lg:grid-cols-4",
+};
 
-export default function Pricing() {
+export default function Pricing({ packages, landing }: { packages: Package[]; landing: Landing }) {
+  if (packages.length === 0) return null;
   return (
-    <section id="pacchetti" className="relative bg-panel py-32 md:py-40 px-6 md:px-10 scroll-mt-24 overflow-hidden">
+    <section id="pacchetti" className="relative bg-panel py-24 md:py-40 px-5 md:px-10 scroll-mt-24 overflow-hidden">
       <span className="section-label">Listino</span>
       <div className="glow-accent w-[600px] h-[600px] -top-40 left-1/2 -translate-x-1/2 opacity-60" />
 
@@ -60,17 +22,20 @@ export default function Pricing() {
             <div>
               <p className="eyebrow mb-6">Commissioni</p>
               <h2 className="font-serif font-light text-5xl md:text-7xl leading-none">
-                Pacchetti
+                {landing.pricingTitle ?? "Pacchetti"}
               </h2>
             </div>
-            <p className="text-white/50 max-w-sm leading-relaxed">
-              Prezzi di partenza. Il preventivo finale dipende da complessità,
-              numero di soggetti e uso finale — commerciale o personale.
-            </p>
+            {landing.pricingIntro && (
+              <p className="text-white/50 max-w-sm leading-relaxed">{landing.pricingIntro}</p>
+            )}
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+        <div
+          className={`grid grid-cols-1 ${
+            gridCols[packages.length] ?? "md:grid-cols-2 lg:grid-cols-3"
+          } gap-px bg-white/10 border border-white/10`}
+        >
           {packages.map((pkg, i) => (
             <Reveal key={pkg.name} delay={i * 100} className="h-full">
               <div
@@ -110,11 +75,11 @@ export default function Pricing() {
                       pkg.highlight ? "text-shimmer animate-shimmer" : "text-gold"
                     }`}
                   >
-                    {pkg.price.replace("da ", "")}
+                    {pkg.price}€
                   </span>
                 </p>
                 <p className="relative text-white/60 text-sm leading-relaxed mb-8">
-                  {pkg.desc}
+                  {pkg.description}
                 </p>
                 <ul
                   className={`relative mt-auto space-y-3 mb-8 pt-6 border-t text-sm ${
@@ -141,10 +106,11 @@ export default function Pricing() {
           ))}
         </div>
 
-        <p className="text-center text-taupe text-xs mt-12 tracking-[0.15em] uppercase">
-          Consegna tipica 7–21 giorni · Acconto 30% all&apos;accettazione ·
-          Disponibile in digitale o su tela
-        </p>
+        {landing.pricingNote && (
+          <p className="text-center text-taupe text-xs mt-12 tracking-[0.15em] uppercase leading-relaxed">
+            {landing.pricingNote}
+          </p>
+        )}
       </div>
     </section>
   );
