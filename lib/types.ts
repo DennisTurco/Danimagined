@@ -26,6 +26,8 @@ export interface Work {
   year?: number;
   technique?: string;
   price?: number;
+  // Ultima modifica in Sanity (ISO), usata nella sitemap.
+  updatedAt?: string;
 }
 
 export interface Package {

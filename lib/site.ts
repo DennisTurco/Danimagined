@@ -1,7 +1,7 @@
 // Dati fissi del sito. Contatti, social e testi si gestiscono da Sanity (Impostazioni).
 export const site = {
   // Dominio di produzione: usato per canonical, sitemap, Open Graph e dati strutturati.
-  url: "https://www.danimagined.it",
+  url: "https://www.danimagined.com",
   name: "Danimagined",
   locale: "it_IT",
 };

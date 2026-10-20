@@ -3,22 +3,17 @@ import WorksGallery from "@/components/WorksGallery";
 import JsonLd from "@/components/JsonLd";
 import { getCategories, getWorks } from "@/lib/content";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const works = await getWorks();
-  const cover = works[0]?.image;
-  return {
+  return pageMetadata({
     title: "Le opere: portfolio di illustrazione fantasy",
     description:
       "Portfolio di illustrazione e concept art fantasy: creature ibride, scene narrative e ritratti digitali realizzati da Danimagined.",
-    alternates: { canonical: "/opere" },
-    openGraph: {
-      url: "/opere",
-      title: "Le opere - Danimagined",
-      description: "Creature ibride, scene narrative e ritratti fantasy: il portfolio di Danimagined.",
-      images: cover ? [{ url: cover.src, width: cover.width, height: cover.height }] : undefined,
-    },
-  };
+    path: "/opere",
+    image: works[0]?.image,
+  });
 }
 
 export default async function OperePage() {

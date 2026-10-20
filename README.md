@@ -95,7 +95,7 @@ public/images/                Static images (logo, sample content)
 ## Sanity setup
 
 1. **Project**: create a project at [sanity.io/manage](https://www.sanity.io/manage) (or use the existing one) and put its ID in `.env.local`.
-2. **CORS**: in the project's *API → CORS origins*, add `http://localhost:3000` and the production URL (`https://www.danimagined.it`), both with *Allow credentials* checked. This lets the embedded Studio log in.
+2. **CORS**: in the project's *API → CORS origins*, add `http://localhost:3000` and the production URL (`https://www.danimagined.com`), both with *Allow credentials* checked. This lets the embedded Studio log in.
 3. **Initial content** (optional): import the current sample works, packages and texts, including images:
 
    ```bash
@@ -108,7 +108,7 @@ public/images/                Static images (logo, sample content)
 
    Existing documents are not overwritten. To force it, run `npm run sanity:seed -- --replace`.
 4. **Instant updates**: pages are cached and refreshed every hour. To publish changes immediately, create a webhook in *API → Webhooks*:
-   - URL: `https://www.danimagined.it/api/revalidate`
+   - URL: `https://www.danimagined.com/api/revalidate`
    - Trigger on: create, update, delete
    - HTTP method: POST
    - Secret: the same value as `SANITY_REVALIDATE_SECRET`

@@ -86,6 +86,18 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
               priceRange: prices.length ? `€${Math.min(...prices)} - €${Math.max(...prices)}+` : undefined,
               knowsAbout: ["Concept art", "Character design", "Creature design", "Illustrazione digitale"],
               sameAs: settings.socials.map((s) => s.url),
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Illustrazioni su commissione",
+                itemListElement: packages.map((p) => ({
+                  "@type": "Offer",
+                  name: p.name,
+                  description: p.description,
+                  price: p.price,
+                  priceCurrency: "EUR",
+                  url: `${site.url}/contatti`,
+                })),
+              },
             },
           ],
         }}

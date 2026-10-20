@@ -4,6 +4,7 @@ import { getWork, getWorks } from "@/lib/content";
 import WorkDetail from "@/components/WorkDetail";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -18,21 +19,18 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const work = await getWork(slug);
   if (!work) return { title: "Opera non trovata" };
-  const url = `/opere/${work.slug}`;
-  const description = work.description ?? `${work.category.title} di Danimagined.`;
-  const image = { url: work.image.src, width: work.image.width, height: work.image.height, alt: work.title };
-  return {
+  const description =
+    work.description ??
+    `${work.title}: ${work.category.title.toLowerCase()} fantasy di Danimagined, illustrazione digitale${
+      work.year ? ` del ${work.year}` : ""
+    }. Commissiona un'opera simile.`;
+  return pageMetadata({
     title: `${work.title} - ${work.category.title}`,
     description,
-    alternates: { canonical: url },
-    openGraph: { type: "article", url, title: `${work.title} - Danimagined`, description, images: [image] },
-    twitter: {
-      card: "summary_large_image",
-      title: `${work.title} - Danimagined`,
-      description,
-      images: [work.image.src],
-    },
-  };
+    path: `/opere/${work.slug}`,
+    image: { ...work.image, alt: work.image.alt || work.title },
+    type: "article",
+  });
 }
 
 export default async function WorkPage({ params }: Params) {

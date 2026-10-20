@@ -21,7 +21,11 @@ const jost = Jost({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   applicationName: site.name,
-  icons: { icon: "/images/logo.png", apple: "/images/logo.png" },
+  // Le icone arrivano da app/icon.png e app/apple-icon.png.
+  // Codice di verifica di Google Search Console (metodo "tag HTML").
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   formatDetection: { telephone: false },
 };
 

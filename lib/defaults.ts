@@ -231,5 +231,5 @@ export const defaultSettings: Settings = {
   seoTitle: "Danimagined - Illustrazione & Concept Art fantasy su commissione",
   seoDescription:
     "Illustrazione e concept art fantasy su commissione: character design, creature ibride, scene narrative e ritratti digitali. Preventivo entro 48 ore.",
-  ogImage: { src: "/images/banner.png", width: 1024, height: 1024, alt: "Danimagined - Concept Art" },
+  ogImage: { src: "/images/og-default.jpg", width: 1200, height: 630, alt: "Danimagined - Concept Art" },
 };

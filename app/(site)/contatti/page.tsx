@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 import BookCallPanel from "@/components/BookCallPanel";
 import ContactForm from "@/components/ContactForm";
 import { getPackages, getSettings } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contatti e commissioni",
-  description:
-    "Richiedi un'illustrazione fantasy su commissione o prenota una call con Danimagined: ritratti da 50€, creature design, scene narrative. Risposta entro 48 ore.",
-  alternates: { canonical: "/contatti" },
-  openGraph: {
-    url: "/contatti",
-    title: "Contatti e commissioni - Danimagined",
-  },
-};
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata({
+    title: "Contatti e commissioni",
+    description:
+      "Richiedi un'illustrazione fantasy su commissione o prenota una call con Danimagined: ritratti da 50€, creature design, scene narrative. Risposta entro 48 ore.",
+    path: "/contatti",
+  });
+}
 
 export default async function ContattiPage() {
   const [settings, packages] = await Promise.all([getSettings(), getPackages()]);

@@ -76,7 +76,8 @@ const WORK = `{
   description,
   year,
   technique,
-  price
+  price,
+  "updatedAt": _updatedAt
 }`;
 
 type RawWork = Omit<Work, "image"> & { image: RawImg };

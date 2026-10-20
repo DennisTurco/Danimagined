@@ -6,14 +6,16 @@ const absolute = (src: string) => (src.startsWith("http") ? src : `${site.url}${
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const works = await getWorks();
-  const now = new Date();
+  // Date reali di modifica: se cambiano a ogni richiesta Google smette di fidarsi.
+  const dates = works.map((w) => w.updatedAt).filter((d): d is string => Boolean(d));
+  const latest = dates.length ? new Date(dates.sort().at(-1)!) : undefined;
   return [
-    { url: site.url, lastModified: now, changeFrequency: "monthly", priority: 1 },
-    { url: `${site.url}/opere`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${site.url}/contatti`, lastModified: now, changeFrequency: "yearly", priority: 0.7 },
+    { url: site.url, lastModified: latest, changeFrequency: "monthly", priority: 1 },
+    { url: `${site.url}/opere`, lastModified: latest, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${site.url}/contatti`, changeFrequency: "yearly", priority: 0.7 },
     ...works.map((w) => ({
       url: `${site.url}/opere/${w.slug}`,
-      lastModified: now,
+      lastModified: w.updatedAt ? new Date(w.updatedAt) : undefined,
       changeFrequency: "yearly" as const,
       priority: 0.6,
       images: [absolute(w.image.src)],
