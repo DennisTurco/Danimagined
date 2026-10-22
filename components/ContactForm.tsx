@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { mailto } from "@/lib/site";
 import type { Package } from "@/lib/types";
 
-const prodotti = ["File digitale", "Stampa su tela"];
+const prodotti = ["File digitale", "Su tela"];
 
 const field =
   "w-full bg-transparent border-b border-white/25 py-2 text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors";
