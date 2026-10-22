@@ -17,9 +17,11 @@ export const SANITY_TAG = "sanity";
 
 const isDev = process.env.NODE_ENV === "development";
 
-// In sviluppo niente cache né CDN: le modifiche fatte nello Studio si vedono al primo refresh.
+// Niente CDN di Sanity: la cache la gestisce Next (revalidate + webhook). Con la CDN il
+// webhook potrebbe rileggere dati non ancora aggiornati e tenerli in cache per un'ora.
+// In sviluppo niente cache: le modifiche fatte nello Studio si vedono al primo refresh.
 const client = isSanityConfigured
-  ? createClient({ projectId, dataset, apiVersion, useCdn: !isDev, perspective: "published" })
+  ? createClient({ projectId, dataset, apiVersion, useCdn: false, perspective: "published" })
   : null;
 
 async function fetchSanity<T>(query: string, params: Record<string, unknown> = {}): Promise<T | null> {
