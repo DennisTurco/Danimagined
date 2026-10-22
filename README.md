@@ -29,6 +29,7 @@ lib/content.ts                Data layer: GROQ queries to Sanity
 lib/defaults.ts               Sample content, used when Sanity is not configured
 lib/types.ts                  Content types shared by components
 lib/site.ts                   Site URL and name
+lib/emailjs.ts                Sends the contact form with EmailJS
 sanity/schemaTypes/           Sanity schemas (works, categories, packages, landing, about, settings)
 sanity.config.ts              Studio configuration
 scripts/seed-sanity.ts        Imports the sample content and images into Sanity
@@ -81,6 +82,9 @@ public/images/                Static images (logo, sample content)
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project ID (sanity.io/manage → project)               |
 | `NEXT_PUBLIC_SANITY_DATASET`    | Dataset name, default `production`                           |
 | `SANITY_REVALIDATE_SECRET`      | Shared secret for the publish webhook (any long random string) |
+| `NEXT_PUBLIC_EMAILJS_SERVICE_ID` | EmailJS service that sends the contact form (see [Contact form](#contact-form-emailjs)) |
+| `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID` | EmailJS template for the contact form                       |
+| `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | EmailJS public key (*Account → General*)                     |
 
 ### Available scripts
 
@@ -125,6 +129,20 @@ public/images/                Static images (logo, sample content)
 | Impostazioni    | Email, social profiles, Google Calendar booking link, commissions open/closed, response time, SEO title, description and share image |
 
 Featured works appear in the home carousel; if none is featured, the first eight are shown.
+
+## Contact form (EmailJS)
+
+The form on `/contatti` sends the request with [EmailJS](https://www.emailjs.com), without opening the visitor's mail app. Until the three `NEXT_PUBLIC_EMAILJS_*` variables are set, it falls back to opening the mail app.
+
+1. **Service**: in *Email Services*, connect the mailbox that sends the emails and copy its Service ID.
+2. **Template**: in *Email Templates*, create one with:
+   - To Email: the address that receives the requests
+   - Subject: `{{subject}}`
+   - Reply To: `{{email}}`, so replying goes straight to the visitor
+   - Content: e.g. `{{name}} ({{email}})` followed by `{{message}}`
+3. **Public key**: copy it from *Account → General*.
+4. **Security**: in *Account → Security*, restrict requests to `danimagined.com` and enable a rate limit.
+5. Put the three values in `.env.local` and in the hosting environment variables, then redeploy.
 
 ## Notes
 

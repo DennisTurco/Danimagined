@@ -10,6 +10,7 @@
     "sanity:seed": "esbuild scripts/seed-sanity.ts --bundle --platform=node --format=esm --packages=external --outfile=node_modules/.cache/seed-sanity.mjs --log-level=warning && node --env-file=.env.local node_modules/.cache/seed-sanity.mjs"
   },
   "dependencies": {
+    "@emailjs/browser": "^5.0.3",
     "@sanity/icons": "^3.8.0",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^4.22.1",

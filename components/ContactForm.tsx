@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isEmailjsConfigured, sendEmail } from "@/lib/emailjs";
 import { mailto } from "@/lib/site";
 import type { Package } from "@/lib/types";
 
@@ -30,7 +31,7 @@ export default function ContactForm({
   const [tipo, setTipo] = useState<string | null>(null);
   const [prodotto, setProdotto] = useState<string | null>(null);
   const [messaggio, setMessaggio] = useState("");
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   // Preseleziona il pacchetto quando si arriva dal listino (/contatti?pacchetto=...).
   useEffect(() => {
@@ -38,28 +39,40 @@ export default function ContactForm({
     if (scelto && packages.some((p) => p.name === scelto)) setTipo(scelto);
   }, [packages]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const body = [
-      `Ciao, sono ${nome}.`,
-      "",
-      tipo && `Pacchetto: ${tipo}`,
-      prodotto && `Prodotto: ${prodotto}`,
-      `La mia email: ${mittente}`,
-      "",
-      messaggio,
-      "",
-      "(Allego qui le reference, se ne ho.)",
-    ]
-      .filter((line) => line !== null)
+    const subject = `Richiesta commissione${tipo ? ` - ${tipo}` : ""} - ${nome}`;
+    const dettagli = [tipo && `Pacchetto: ${tipo}`, prodotto && `Prodotto: ${prodotto}`]
+      .filter(Boolean)
       .join("\n");
 
-    window.location.href = mailto(
-      email,
-      `Richiesta commissione${tipo ? ` - ${tipo}` : ""} - ${nome}`,
-      body
-    );
-    setSent(true);
+    // Ripiego finché EmailJS non è configurato: apre l'app di posta.
+    if (!isEmailjsConfigured) {
+      const body = [`Ciao, sono ${nome}.`, "", dettagli, `La mia email: ${mittente}`, "", messaggio]
+        .join("\n");
+      window.location.href = mailto(email, subject, body);
+      setStatus("sent");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await sendEmail({
+        subject,
+        name: nome,
+        email: mittente,
+        message: [dettagli, messaggio].filter(Boolean).join("\n\n"),
+      });
+      setStatus("sent");
+      setNome("");
+      setMittente("");
+      setTipo(null);
+      setProdotto(null);
+      setMessaggio("");
+    } catch (error) {
+      console.error("[emailjs] invio fallito:", error);
+      setStatus("error");
+    }
   };
 
   return (
@@ -147,15 +160,32 @@ export default function ContactForm({
       </div>
 
       <div>
-        <button type="submit" className="btn-solid">
-          Invia la richiesta
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="btn-solid disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
+        >
+          {status === "sending" ? "Invio in corso…" : "Invia la richiesta"}
         </button>
         <p className="mt-4 text-white/40 text-xs leading-relaxed">
-          Si apre la tua app di posta con il messaggio già pronto: allega le reference e invia.
+          {isEmailjsConfigured
+            ? "Hai delle reference? Mandamele rispondendo alla mia email."
+            : "Si apre la tua app di posta con il messaggio già pronto: allega le reference e invia."}
         </p>
-        {sent && (
+        {status === "sent" && (
           <p className="mt-4 text-gold text-sm" role="status">
-            Invia l&apos;email appena aperta: ti rispondo entro {responseTime}.
+            {isEmailjsConfigured
+              ? `Richiesta inviata: ti rispondo entro ${responseTime}.`
+              : `Invia l'email appena aperta: ti rispondo entro ${responseTime}.`}
+          </p>
+        )}
+        {status === "error" && (
+          <p className="mt-4 text-red-400 text-sm" role="alert">
+            Invio non riuscito. Riprova o scrivimi a{" "}
+            <a href={`mailto:${email}`} className="link-underline">
+              {email}
+            </a>
+            .
           </p>
         )}
       </div>
