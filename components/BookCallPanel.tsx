@@ -37,7 +37,7 @@ export default function BookCallPanel({
   return (
     <div id="prenota" className="scroll-mt-28 border border-white/10 p-7 md:p-8 bg-panel">
       <h3 className="font-serif text-2xl font-light text-white mb-1">
-        Prenota una call di 30&prime;
+        Prenota una call
       </h3>
       {bookingUrl ? (
         <CalendarBooking url={bookingUrl} />
@@ -87,7 +87,7 @@ function CalendarBooking({ url }: { url: string }) {
   return (
     <>
       <p className="text-white/40 text-sm mb-7">
-        Scegli tu giorno e orario tra quelli liberi: la conferma arriva in
+        Scegli tu giorno e orario tra quelli disponibili: la conferma arriva in
         automatico.
       </p>
 
